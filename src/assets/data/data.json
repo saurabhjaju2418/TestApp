@@ -1,0 +1,50 @@
+[
+    {
+       "id":"1",
+       "name":"Leanne Graham",
+       "email":"Sincere@april.biz",
+       "address":"Gwenborough",
+       "birthdate":"11/11/1991",
+       "gender":"M"
+    },
+    {
+       "id":"2",
+       "name":"Ervin Howell",
+       "email":"Shanna@melissa.tv",
+       "address":"Wisokyburgh",
+       "birthdate":"10/9/1988",
+       "gender":"M"
+    },
+    {
+        "id": 3,
+        "name": "Clementine Bauch",
+        "email": "Nathan@yesenia.net",
+        "address":"McKenziehaven",
+        "birthdate":"2/2/1991",
+        "gender":"M"
+    },
+    {
+        "id": 4,
+        "name": "Saurabh Jaju",
+        "email": "Saurabh@jaju.net",
+        "address":"Pune",
+        "birthdate":"7/3/1993",
+        "gender":"M"
+    },  
+    {
+        "id": 5,
+        "name": "Snehal Kadam",
+        "email": "snehal@kadam.net",
+        "address":"Akluj",
+        "birthdate":"6/25/1994",
+        "gender":"F"
+    },
+    {
+        "id": 6,
+        "name": "Nikhil Kapide",
+        "email": "snehal@kadam.net",
+        "address":"Akluj",
+        "birthdate":"8/24/1994",
+        "gender":"M"
+    }
+ ]

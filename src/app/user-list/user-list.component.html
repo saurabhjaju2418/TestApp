@@ -1,0 +1,40 @@
+<h3 style="float: left">Hey {{ name.displayName }}!</h3>
+<div style="float: right">
+        <button (click)="logout()" class="basic-btn">Logout</button>
+</div>
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+    </div>
+    <p-dataTable [value]="userList" [rows]="10" [paginator]="true" [globalFilter]="gb" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [rows]="10" sortMode="multiple"
+    selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)" [responsive]="true" #dt>
+        <p-header>
+                <div class="ui-helper-clearfix">
+                        List of Users   
+                <button type="button" pButton icon="fa-plus" iconPos="left" label="Add" (click)="addUser()" style="float:left"></button>
+                
+            </div></p-header>
+        <p-column field="id" header="Id" [filter]="true" filterPlaceholder="Search" [sortable]="true"></p-column>
+        <p-column field="name" header="Name" [sortable]="true"></p-column>
+        <p-column field="email" header="Email" [sortable]="true"></p-column>
+        <p-column field="address" header="Address" [sortable]="true"></p-column>
+        <p-column field="birthdate" header="Birthdate" [sortable]="true">
+                <ng-template pTemplate="body" let-row="rowData">
+                        {{row.birthdate | date: 'MM/dd/yyyy'}}
+                    </ng-template>
+        </p-column>
+        <p-column field="gender" header="Gender" [filter]="true" [sortable]="true" filterMatchMode="in">
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="genders" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+        </p-column>
+        <p-column styleClass="col-button">
+            <ng-template pTemplate="header">
+                Actions
+            </ng-template>
+            <ng-template let-user="rowData" pTemplate="body">
+                <!-- <button type="button" pButton (click)="editUser(user)" icon="fa-edit"></button>&nbsp; -->
+                <button type="button" pButton (click)="deleteUser(user)" icon="fa-trash"></button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>

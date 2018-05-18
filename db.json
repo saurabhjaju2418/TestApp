@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Saurabh Jaju",
+      "email": "saurabh@jaju.com",
+      "address": "Aurangabad",
+      "birthdate": "3/7/1991",
+      "gender": "M"
+    },
+    {
+      "id": 2,
+      "name": "Nikhil Kapile",
+      "email": "nikhil@kapile.net",
+      "address": "Mumbai",
+      "birthdate": "8/24/1994",
+      "gender": "M"
+    },
+    {
+      "id": 3,
+      "name": "Darshan Patil",
+      "email": "darshan@patil.net",
+      "address": "Dhule",
+      "birthdate": "4/17/1994",
+      "gender": "M"
+    },
+    {
+      "id": 4,
+      "name": "Snehal Kadam",
+      "email": "snehal@kadam.net",
+      "address": "Akluj",
+      "birthdate": "6/25/1994",
+      "gender": "F"
+    },
+    {
+      "id": 5,
+      "name": "Ravi Reddy",
+      "email": "ravi@reddy.net",
+      "address": "Udgir",
+      "birthdate": "7/1/1992",
+      "gender": "M"
+    },
+    {
+      "id": "6",
+      "name": "Govind Mane",
+      "email": "govind@mane.com",
+      "address": "Latur",
+      "birthdate": "4/26/1990",
+      "gender": "M"
+    },
+    {
+      "id": 7,
+      "name": "Anita Pawar",
+      "email": "anita@pawar.net",
+      "address": "Pune",
+      "birthdate": "8/24/1994",
+      "gender": "F"
+    },
+    {
+      "id": 8,
+      "name": "Vidya Thorat",
+      "email": "vidya@thorat.net",
+      "address": "Saswad",
+      "birthdate": "4/17/1994",
+      "gender": "F"
+    },
+    {
+      "id": 9,
+      "name": "Balaji Swami",
+      "email": "balaji@swami.net",
+      "address": "Udgir",
+      "birthdate": "4/14/1992",
+      "gender": "M"
+    },
+    {
+      "id": 10,
+      "name": "Akash Samge",
+      "email": "akash@samge.net",
+      "address": "Udgir",
+      "birthdate": "9/1/1993",
+      "gender": "M"
+    }
+  ]
+}

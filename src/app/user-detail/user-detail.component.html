@@ -1,0 +1,18 @@
+<div style="float: right">
+        <button (click)="logout()" class="basic-btn">Logout</button>
+</div>
+<div class="card">
+    <div class="card-body">
+        <a routerLink="/userlist" id="goback">Go back</a>
+      <h2>User detail</h2>
+      <hr>
+      <h3>Name: {{user.name}}</h3>
+      <h3>Email: {{user.email}}</h3>
+      <h3>Address: {{user.address}}</h3>
+      <h3>BirthDate: {{user.birthdate}}</h3>
+      <h3>Gender: {{user.gender}}</h3>
+      <a routerLink="/userlist" id="goback">Go back</a>
+   </div>
+
+</div>
+  
