@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 @Component({
+  standalone: false,
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
@@ -42,8 +43,8 @@ export class EditUserComponent implements OnInit {
     
     this.userService.getUserById(this.id).subscribe(
       data => {
-        
-        this.user = data
+        this.user = data;
+        this.formdata.patchValue(data);
       }
       
     );
@@ -51,8 +52,7 @@ export class EditUserComponent implements OnInit {
   }
 
   onClickSubmit(data) {
-    this.user = new User(data);
-     alert(JSON.stringify(this.user));
+    this.user = new User({ ...data, id: this.id });
         this.userService.updateUser(this.user).subscribe(
           data => console.log(JSON.stringify(data))
         );

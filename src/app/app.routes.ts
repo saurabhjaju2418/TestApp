@@ -1,7 +1,4 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { AppComponent } from './app.component';
+import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { MembersComponent } from './members/members.component';
 import { AuthGuard } from './auth.guard';
@@ -28,6 +25,4 @@ export const router: Routes = [
     
 
 
-]
-
-export const routes: ModuleWithProviders = RouterModule.forRoot(router);
+];

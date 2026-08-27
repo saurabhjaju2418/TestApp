@@ -1,5 +1,13 @@
 # TestApp
 
+Modern Angular and Firebase authentication demo with a JSON Server-backed user directory.
+
+## Development
+
+Use Node.js 24 and pnpm 11. Run `pnpm install`, start the API with `pnpm api`, and run the application with `pnpm start`.
+
+The Firebase browser configuration identifies the public Firebase project; access must be enforced with Firebase Authentication and server-side security rules.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
 
 

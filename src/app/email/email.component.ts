@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-import { Router } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
 
 import { AuthService } from '../services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-email',
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css'],
@@ -17,11 +15,11 @@ import { AuthService } from '../services/auth.service';
 export class EmailComponent implements OnInit {
 
   state: string = '';
+  email = '';
+  password = '';
     error: any;
     
-    constructor(public af: AngularFireAuth,private router: Router, private authService: AuthService) {
-    
-  }
+  constructor(private authService: AuthService) {}
 
 
   onSubmit(formData) {

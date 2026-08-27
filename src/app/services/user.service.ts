@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -17,7 +17,7 @@ export class UserService {
   }
 
   // Simulate DELETE /users/:id
-  deleteUserById(userId: number): Observable<User> {
+  deleteUserById(userId: number): Observable<void> {
     return this.api.deleteUserById(userId);
   }
 

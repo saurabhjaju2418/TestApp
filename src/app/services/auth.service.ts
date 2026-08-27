@@ -1,97 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-
-
-
-import { firebase } from '@firebase/app';
-
-import { AngularFireAuth } from 'angularfire2/auth'
-
-@Injectable()
+import { initializeApp } from 'firebase/app';
+import { Auth, FacebookAuthProvider, GoogleAuthProvider, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+const firebaseConfig = { apiKey: 'AIzaSyDH0GMpPGggxGkjDdGiyBFqtrZpv8r1I-0', authDomain: 'angular4primeng.firebaseapp.com', databaseURL: 'https://angular4primeng.firebaseio.com', projectId: 'angular4primeng', messagingSenderId: '1027761631774' };
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-
-
-  isAuthenticated: boolean = false;
-  error: any;
-
-  constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
-    
-  }
-
-  signIn(email: string, password: string) {
-    return this.firebaseAuth
-        .auth
-        .signInWithEmailAndPassword(email, password)
-        .then(value => {
-            console.log('Signed In Using Email and Password');
-            this.isAuthenticated = true;
-            this.router.navigateByUrl('/userlist');
-        })
-        .catch(err => {
-            // alert(JSON.stringify(err));
-            this.error = err.message;
-            console.log('Sign-In Error: ', err.message);
-            alert('Sign-In Error: '+ err.message);
-        });
-  }
-
-  signOut() {
-    this.firebaseAuth
-        .auth
-        .signOut();
-    this.isAuthenticated = false;
-    this.router.navigateByUrl('/login');
-    console.log('Signed Out');
-  }
-
-  register(email: string, password: string) {
-    this.firebaseAuth
-        .auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(value => {
-            console.log('Registration Successful', value);
-            this.router.navigate(['/login']);
-        })
-        .catch(err => {
-            // alert(JSON.stringify(err));
-            this.error = err.message;
-            console.log('Registration Error: ', err.message);
-            alert('Registration Error: '+ err.message);
-        });    
-  }
-
-  signInUsingFb(){
-    return this.firebaseAuth
-        .auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider)
-        .then(value => {
-            console.log('Signed In Using Fb');
-            this.isAuthenticated = true;
-            this.router.navigateByUrl('/userlist');
-        })
-        .catch(err => {
-            // alert('Sign-In Error: '+ err.message);
-            this.error = err.message;
-            console.log('Sign-In Error: ', err.message);
-            alert('Sign-In Error: '+ err.message);
-        });
-  }
-
-  signInUsingGoogle(){
-    return this.firebaseAuth
-        .auth
-        .signInWithPopup(new firebase.auth.GoogleAuthProvider)
-        .then(value => {
-            console.log('Signed In Using Google');
-            this.isAuthenticated = true;
-            this.router.navigateByUrl('/userlist');
-        })
-        .catch(err => {
-            this.error = err.message;
-            console.log('Sign-In Error: ', err.message);
-            alert('Sign-In Error: '+ err.message);
-        });
-  }
-
+  private readonly auth: Auth = getAuth(initializeApp(firebaseConfig));
+  readonly user = signal<User | null>(this.auth.currentUser);
+  readonly ready: Promise<void>;
+  error = '';
+  constructor(private readonly router: Router) { this.ready = this.auth.authStateReady(); onAuthStateChanged(this.auth, user => this.user.set(user)); }
+  get isAuthenticated(): boolean { return this.user() !== null; }
+  async signIn(email: string, password: string): Promise<void> { await this.run(() => signInWithEmailAndPassword(this.auth, email, password), '/userlist'); }
+  async signOut(): Promise<void> { await signOut(this.auth); await this.router.navigateByUrl('/login'); }
+  async register(email: string, password: string): Promise<void> { await this.run(() => createUserWithEmailAndPassword(this.auth, email, password), '/userlist'); }
+  async signInUsingFb(): Promise<void> { await this.run(() => signInWithPopup(this.auth, new FacebookAuthProvider()), '/userlist'); }
+  async signInUsingGoogle(): Promise<void> { await this.run(() => signInWithPopup(this.auth, new GoogleAuthProvider()), '/userlist'); }
+  private async run(action: () => Promise<unknown>, destination: string): Promise<void> { this.error = ''; try { await action(); await this.router.navigateByUrl(destination); } catch (error) { this.error = error instanceof Error ? error.message : 'Authentication failed'; } }
 }

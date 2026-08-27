@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
 import { moveIn, fallIn, moveInLeft } from '../router.animations';
 
 import { AuthService } from '../services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-members',
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.css'],
@@ -17,16 +16,7 @@ export class MembersComponent implements OnInit {
   name: any;
   state: string = '';
 
-  constructor(public af: AngularFireAuth, private router: Router, private authService: AuthService) {
-
-    this.af.authState.subscribe(auth => {
-      if(auth) {
-        
-        this.name = auth;
-      }
-    });
-
-  }
+  constructor(public authService: AuthService) {}
 
   logout() {
     
