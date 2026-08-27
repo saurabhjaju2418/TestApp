@@ -3,7 +3,7 @@
     <button (click)="logout()" class="basic-btn">Logout</button>
   </header>
   <div id="page" [@moveInLeft]="state">
-    <h2>Hey {{ name.displayName }}!</h2>
+    <h2>Hey {{ authService.user()?.displayName || authService.user()?.email || 'member' }}!</h2>
 
     <img src="assets/images/filler.png" />
   </div>

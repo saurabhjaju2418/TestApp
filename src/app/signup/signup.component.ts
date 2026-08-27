@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
 
 import { AuthService } from '../services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
@@ -15,11 +14,11 @@ import { AuthService } from '../services/auth.service';
 export class SignupComponent implements OnInit {
 
   state: string = '';
+  email = '';
+  password = '';
   error: any;
 
-  constructor(public af: AngularFireAuth,private router: Router, private authService: AuthService) {
-
-  }
+  constructor(private authService: AuthService) {}
 
   onSubmit(formData) {
     if(formData.valid) {

@@ -1,32 +1,23 @@
 
-import { Component, OnInit, HostBinding } from '@angular/core';
-import {  AngularFireAuth } from 'angularfire2/auth';
-
-// import * as firebase from 'firebase/app';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { moveIn } from '../router.animations';
 
 import { AuthService } from '../services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   animations: [moveIn()],
   host: {'[@moveIn]': ''}
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   error: any;
+  state = '';
   
-    constructor(public af: AngularFireAuth,private router: Router, private authService: AuthService) {
-
-      // this.af.authState.subscribe(auth => { 
-      //   if(auth) {
-      //     this.router.navigateByUrl('/userlist');
-      //   }
-      // });
-  }
+  constructor(private authService: AuthService) {}
 
   loginFb() {
     this.authService.signInUsingFb();
@@ -36,7 +27,4 @@ export class LoginComponent implements OnInit {
     this.authService.signInUsingGoogle();
   }
 
-  ngOnInit() {
-
-  }
 }

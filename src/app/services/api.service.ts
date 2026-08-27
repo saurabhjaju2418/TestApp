@@ -1,79 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Http, Response } from '@angular/http';
-
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 import { User } from '../models/user';
-
-
-const API_URL = environment.apiUrl;
-
-@Injectable({
-  providedIn: 'root'
-})
-export class  ApiService {
-
-  constructor(
-    private http: Http
-  ) {
-  }
-
-  public getAllUsers(): Observable<User[]> {
-    return this.http
-      .get(API_URL + '/users')
-      .map(response => {
-        const users = response.json();
-        
-       return users.map((user) => new User(user));
-      })
-      .catch(this.handleError);
-  }
-
-  
-  public createUser(user: User): Observable<User> {
-    return this.http
-      .post(API_URL + '/users', user)
-      .map(response => {
-        return new User(response.json());
-      })
-      .catch(this.handleError);
-  }
-
-
-  public getUserById(userId: number): Observable<User> {
-    return this.http
-      .get(API_URL + '/users/' + userId)
-      .map(response => {
-        return new User(response.json());
-      })
-      .catch(this.handleError);
-  }
-
-
-  public updateUser(user: User): Observable<User> {
-    return this.http
-      .put(API_URL + '/users/' + user.id, user)
-      .map(response => {
-        
-        return new User(response.json());
-      })
-      .catch(this.handleError);
-  }
-
-
-  public deleteUserById(userId: number): Observable<null> {
-    return this.http
-      .delete(API_URL + '/users/' + userId)
-      .map(response => null)
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    console.error('ApiService::handleError', error);
-    return Observable.throw(error);
-  }
+@Injectable({ providedIn: 'root' })
+export class ApiService {
+  private readonly usersUrl = `${environment.apiUrl}/users`;
+  constructor(private readonly http: HttpClient) {}
+  getAllUsers(): Observable<User[]> { return this.http.get<Partial<User>[]>(this.usersUrl).pipe(map(users => users.map(user => new User(user)))); }
+  createUser(user: User): Observable<User> { return this.http.post<Partial<User>>(this.usersUrl, user).pipe(map(value => new User(value))); }
+  getUserById(userId: number): Observable<User> { return this.http.get<Partial<User>>(`${this.usersUrl}/${userId}`).pipe(map(value => new User(value))); }
+  updateUser(user: User): Observable<User> { return this.http.put<Partial<User>>(`${this.usersUrl}/${user.id}`, user).pipe(map(value => new User(value))); }
+  deleteUserById(userId: number): Observable<void> { return this.http.delete<void>(`${this.usersUrl}/${userId}`); }
 }
